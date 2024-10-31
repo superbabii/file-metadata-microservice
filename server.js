@@ -2,19 +2,15 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
+const path = require('path');
 
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from "public" directory
 
 // Configure Multer for in-memory storage
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-
-// Home route
-app.get('/', (req, res) => {
-  res.send('Welcome to the File Metadata Microservice');
-});
 
 // File upload and metadata endpoint
 app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
