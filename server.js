@@ -7,8 +7,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Configure Multer
-const upload = multer({ dest: 'uploads/' });
+// Configure Multer for in-memory storage
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 // Home route
 app.get('/', (req, res) => {
